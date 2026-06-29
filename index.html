@@ -1,0 +1,1854 @@
+
+                        <!DOCTYPE html>
+                        <html lang="en">
+                        <head>
+                            <meta charset="UTF-8">
+                            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+              <style>
+                body {
+                  background-color: white; /* Ensure the iframe has a white background */
+                }
+
+                /* ============================================
+   CSS Variables - Цветовая палитра
+   ============================================ */
+:root {
+    --ivory: #FFFFF0;
+    --cream: #F5F5DC;
+    --champagne: #F7E7CE;
+    --white: #FFFFFF;
+    --beige: #D2B48C;
+    --gold: #D4AF37;
+    --gold-light: #F4E5A1;
+    --gold-dark: #B8960C;
+    --text-dark: #4A4A4A;
+    --text-light: #7A7A7A;
+    --glass-bg: rgba(255, 255, 255, 0.25);
+    --glass-border: rgba(255, 255, 255, 0.4);
+    --shadow-soft: 0 8px 32px rgba(212, 175, 55, 0.1);
+    --shadow-gold: 0 4px 20px rgba(212, 175, 55, 0.3);
+    --font-heading: 'Cormorant Garamond', serif;
+    --font-body: 'Manrope', sans-serif;
+    --transition-smooth: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ============================================
+   Reset & Base
+   ============================================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-body);
+    background: var(--ivory);
+    color: var(--text-dark);
+    overflow-x: hidden;
+    line-height: 1.6;
+}
+
+/* ============================================
+   Loader Screen
+   ============================================ */
+.loader-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.curtain-left,
+.curtain-right {
+    position: absolute;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(135deg, #F5F5DC 0%, #E8DCC4 50%, #D4C5A9 100%);
+    background-image: url('https://image.qwenlm.ai/public_source/6fddd40a-4f03-4f03-abbd-c5e0ec811d06/18d241eb3-a0c6-451e-b625-3fb2efbb1f36.png');
+    background-size: cover;
+    background-position: center;
+    transition: transform 2s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.curtain-left {
+    left: 0;
+    box-shadow: inset -20px 0 40px rgba(0, 0, 0, 0.1);
+}
+
+.curtain-right {
+    right: 0;
+    box-shadow: inset 20px 0 40px rgba(0, 0, 0, 0.1);
+}
+
+.curtain-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(ellipse at center, transparent 0%, rgba(212, 175, 55, 0.1) 100%);
+    pointer-events: none;
+}
+
+.loader-screen.open .curtain-left {
+    transform: translateX(-100%);
+}
+
+.loader-screen.open .curtain-right {
+    transform: translateX(100%);
+}
+
+.birds-container {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10001;
+    opacity: 0;
+    animation: birdsAppear 2s ease-out 0.5s forwards;
+}
+
+.birds-img {
+    width: 200px;
+    height: auto;
+    filter: drop-shadow(0 10px 30px rgba(212, 175, 55, 0.5));
+    animation: birdsFloat 3s ease-in-out infinite;
+}
+
+@keyframes birdsAppear {
+    0% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-50px) scale(0.5);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0) scale(1);
+    }
+}
+
+@keyframes birdsFloat {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.loader-content {
+    position: relative;
+    z-index: 10002;
+    text-align: center;
+    opacity: 0;
+    animation: contentAppear 1.5s ease-out 1s forwards;
+}
+
+@keyframes contentAppear {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.loader-names {
+    font-family: var(--font-heading);
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    font-weight: 300;
+    color: var(--gold);
+    text-shadow: 0 2px 20px rgba(212, 175, 55, 0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.loader-heart {
+    font-size: 2rem;
+    color: var(--gold);
+    animation: heartPulse 2s ease-in-out infinite;
+}
+
+@keyframes heartPulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+.loader-date {
+    font-family: var(--font-body);
+    font-size: 1.2rem;
+    color: var(--text-light);
+    letter-spacing: 0.2em;
+    margin-bottom: 2rem;
+}
+
+.open-btn {
+    padding: 1rem 3rem;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--gold);
+    background: transparent;
+    border: 2px solid var(--gold);
+    border-radius: 50px;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    opacity: 0;
+    animation: btnAppear 1s ease-out 2s forwards;
+    letter-spacing: 0.1em;
+}
+
+@keyframes btnAppear {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.open-btn:hover {
+    background: var(--gold);
+    color: var(--white);
+    box-shadow: var(--shadow-gold);
+    transform: translateY(-2px);
+}
+
+/* ============================================
+   Main Content
+   ============================================ */
+.main-content {
+    opacity: 0;
+    transition: opacity 1s ease-out;
+}
+
+.main-content.visible {
+    opacity: 1;
+}
+
+/* ============================================
+   Hero Section
+   ============================================ */
+.hero-section {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.hero-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('https://image.qwenlm.ai/public_source/6fddd40a-4f03-4f03-abbd-c5e0ec811d06/18be63a79-8a99-47cb-92c5-c9687c559d9e.png') center/cover;
+    opacity: 0.3;
+}
+
+.hero-ornament-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('https://image.qwenlm.ai/public_source/6fddd40a-4f03-4f03-abbd-c5e0ec811d06/16e625809-e2d9-4398-ae25-35debe94823e.png') center/contain no-repeat;
+    opacity: 0.05;
+    animation: ornamentRotate 60s linear infinite;
+}
+
+@keyframes ornamentRotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.hero-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(212, 175, 55, 0.15) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 2rem;
+    max-width: 900px;
+}
+
+.hero-greeting {
+    font-family: var(--font-heading);
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    font-weight: 300;
+    color: var(--gold);
+    margin-bottom: 1rem;
+    opacity: 0;
+    animation: fadeInUp 1s ease-out 0.5s forwards;
+}
+
+.hero-subtitle {
+    font-family: var(--font-body);
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    color: var(--text-light);
+    margin-bottom: 3rem;
+    opacity: 0;
+    animation: fadeInUp 1s ease-out 1s forwards;
+}
+
+.hero-names {
+    font-family: var(--font-heading);
+    font-size: clamp(3rem, 10vw, 7rem);
+    font-weight: 300;
+    color: var(--gold);
+    text-shadow: 0 2px 30px rgba(212, 175, 55, 0.3);
+    margin-bottom: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    opacity: 0;
+    animation: fadeInUp 1s ease-out 1.5s forwards;
+}
+
+.hero-amp {
+    font-size: 0.6em;
+    color: var(--gold-light);
+}
+
+.hero-date {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    font-family: var(--font-body);
+    font-size: clamp(1.2rem, 3vw, 1.8rem);
+    color: var(--text-dark);
+    letter-spacing: 0.2em;
+    opacity: 0;
+    animation: fadeInUp 1s ease-out 2s forwards;
+}
+
+.date-line {
+    width: 60px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.scroll-indicator {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: scrollBounce 2s ease-in-out infinite;
+}
+
+.scroll-arrow {
+    width: 30px;
+    height: 30px;
+    border-right: 2px solid var(--gold);
+    border-bottom: 2px solid var(--gold);
+    transform: rotate(45deg);
+    opacity: 0.5;
+}
+
+@keyframes scrollBounce {
+    0%, 100% {
+        transform: translateX(-50%) translateY(0);
+    }
+    50% {
+        transform: translateX(-50%) translateY(10px);
+    }
+}
+
+/* ============================================
+   Ornament Divider
+   ============================================ */
+.ornament-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 2rem;
+    gap: 2rem;
+}
+
+.divider-line {
+    flex: 1;
+    max-width: 200px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+.divider-ornament {
+    width: 80px;
+    height: 80px;
+    animation: ornamentSpin 20s linear infinite;
+}
+
+.divider-ornament svg {
+    width: 100%;
+    height: 100%;
+}
+
+@keyframes ornamentSpin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* ============================================
+   Sections Common
+   ============================================ */
+section {
+    padding: 6rem 2rem;
+    position: relative;
+}
+
+.section-title {
+    font-family: var(--font-heading);
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 300;
+    color: var(--gold);
+    text-align: center;
+    margin-bottom: 3rem;
+    text-shadow: 0 2px 20px rgba(212, 175, 55, 0.2);
+}
+
+.reveal-section {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.reveal-section.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ============================================
+   Glassmorphism
+   ============================================ */
+.glass {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    box-shadow: var(--shadow-soft);
+}
+
+/* ============================================
+   Invitation Section
+   ============================================ */
+.invitation-section {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.invitation-text {
+    font-family: var(--font-body);
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    color: var(--text-dark);
+    line-height: 1.8;
+}
+
+.invitation-text p {
+    margin-bottom: 1.5rem;
+}
+
+.section-ornament {
+    width: 100px;
+    height: 100px;
+    margin: 2rem auto;
+    background: url('https://image.qwenlm.ai/public_source/6fddd40a-4f03-4f03-abbd-c5e0ec811d06/16e625809-e2d9-4398-ae25-35debe94823e.png') center/contain no-repeat;
+    opacity: 0.3;
+}
+
+.section-ornament.top {
+    margin-bottom: 2rem;
+}
+
+.section-ornament.bottom {
+    margin-top: 2rem;
+}
+
+/* ============================================
+   Timer Section
+   ============================================ */
+.timer-section {
+    background: linear-gradient(135deg, var(--ivory) 0%, var(--champagne) 100%);
+}
+
+.timer-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.timer-card {
+    padding: 2rem 1rem;
+    text-align: center;
+    transition: var(--transition-smooth);
+}
+
+.timer-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-gold);
+}
+
+.timer-value {
+    font-family: var(--font-heading);
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 300;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+    transition: transform 0.3s ease;
+}
+
+.timer-value.changing {
+    animation: numberChange 0.5s ease;
+}
+
+@keyframes numberChange {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.timer-label {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: var(--text-light);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+/* ============================================
+   Calendar Section
+   ============================================ */
+.calendar-section {
+    text-align: center;
+}
+
+.calendar-wrapper {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.calendar {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: var(--shadow-soft);
+    margin-bottom: 2rem;
+}
+
+.calendar-header {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    color: var(--text-light);
+    text-transform: uppercase;
+}
+
+.calendar-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.5rem;
+}
+
+.day {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: var(--text-dark);
+    border-radius: 50%;
+    transition: var(--transition-smooth);
+}
+
+.day.other-month {
+    color: var(--text-light);
+    opacity: 0.3;
+}
+
+.day.special {
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    color: var(--white);
+    font-weight: 600;
+    font-size: 1.2rem;
+    box-shadow: var(--shadow-gold);
+    animation: specialPulse 2s ease-in-out infinite;
+}
+
+@keyframes specialPulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+.calendar-day-name {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    color: var(--gold);
+    font-weight: 500;
+}
+
+/* ============================================
+   Info Section
+   ============================================ */
+.info-section {
+    background: linear-gradient(135deg, var(--champagne) 0%, var(--ivory) 100%);
+}
+
+.info-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.info-card {
+    padding: 2.5rem 2rem;
+    text-align: center;
+    transition: var(--transition-smooth);
+}
+
+.info-card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-gold);
+}
+
+.info-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.info-label {
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.info-value {
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    color: var(--text-dark);
+    line-height: 1.6;
+}
+
+.info-btn {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.75rem 1.5rem;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: var(--gold);
+    background: transparent;
+    border: 1px solid var(--gold);
+    border-radius: 25px;
+    text-decoration: none;
+    transition: var(--transition-smooth);
+}
+
+.info-btn:hover {
+    background: var(--gold);
+    color: var(--white);
+    box-shadow: var(--shadow-gold);
+}
+
+/* ============================================
+   Map Section
+   ============================================ */
+.map-container {
+    max-width: 900px;
+    margin: 0 auto 2rem;
+    overflow: hidden;
+    border-radius: 20px;
+}
+
+.map-container iframe {
+    width: 100%;
+    height: 400px;
+    border: none;
+    display: block;
+}
+
+.direction-btn {
+    display: inline-block;
+    padding: 1rem 2.5rem;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--gold);
+    background: transparent;
+    border: 2px solid var(--gold);
+    border-radius: 50px;
+    text-decoration: none;
+    transition: var(--transition-smooth);
+    letter-spacing: 0.1em;
+}
+
+.direction-btn:hover {
+    background: var(--gold);
+    color: var(--white);
+    box-shadow: var(--shadow-gold);
+    transform: translateY(-2px);
+}
+
+/* ============================================
+   Dress Code Section
+   ============================================ */
+.dresscode-section {
+    text-align: center;
+}
+
+.dresscode-text {
+    font-family: var(--font-body);
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    color: var(--text-dark);
+    max-width: 600px;
+    margin: 0 auto 3rem;
+    line-height: 1.8;
+}
+
+.color-palette {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.color-card {
+    padding: 2rem;
+    text-align: center;
+    transition: var(--transition-smooth);
+    cursor: pointer;
+}
+
+.color-card:hover {
+    transform: translateY(-10px) scale(1.05);
+    box-shadow: var(--shadow-gold);
+}
+
+.color-circle {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin: 0 auto 1rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: var(--transition-smooth);
+}
+
+.color-card:hover .color-circle {
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+}
+
+.color-card span {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--text-dark);
+    font-weight: 500;
+}
+
+/* ============================================
+   RSVP Section
+   ============================================ */
+.rsvp-section {
+    background: linear-gradient(135deg, var(--ivory) 0%, var(--champagne) 100%);
+}
+
+.rsvp-subtitle {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--text-light);
+    text-align: center;
+    margin-bottom: 3rem;
+    font-style: italic;
+}
+
+.rsvp-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+}
+
+.rsvp-form {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.form-group label {
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    color: var(--gold);
+    font-weight: 500;
+}
+
+.form-group input[type="text"] {
+    padding: 1rem 1.5rem;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--text-dark);
+    background: var(--white);
+    border: 1px solid var(--champagne);
+    border-radius: 10px;
+    transition: var(--transition-smooth);
+}
+
+.form-group input[type="text"]:focus {
+    outline: none;
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+}
+
+.attendance-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.attendance-card {
+    position: relative;
+    cursor: pointer;
+}
+
+.attendance-card input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+}
+
+.attendance-content {
+    padding: 1.5rem;
+    background: var(--white);
+    border: 2px solid var(--champagne);
+    border-radius: 15px;
+    text-align: center;
+    transition: var(--transition-smooth);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.attendance-emoji {
+    font-size: 2rem;
+}
+
+.attendance-card input[type="radio"]:checked + .attendance-content {
+    border-color: var(--gold);
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(244, 229, 161, 0.1));
+    box-shadow: var(--shadow-gold);
+    transform: scale(1.05);
+}
+
+.attendance-card:hover .attendance-content {
+    border-color: var(--gold-light);
+    transform: translateY(-3px);
+}
+
+.submit-btn {
+    padding: 1.25rem 3rem;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--white);
+    background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    letter-spacing: 0.1em;
+    position: relative;
+    overflow: hidden;
+}
+
+.submit-btn:hover:not(:disabled) {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-gold);
+}
+
+.submit-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.submit-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s ease;
+}
+
+.submit-btn:hover::before {
+    left: 100%;
+}
+
+.success-message,
+.error-message,
+.already-responded {
+    text-align: center;
+    padding: 2rem;
+}
+
+.success-icon,
+.error-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    font-size: 2.5rem;
+    animation: iconAppear 0.6s ease-out;
+}
+
+.success-icon {
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    color: var(--white);
+}
+
+.error-icon {
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
+    color: var(--white);
+}
+
+@keyframes iconAppear {
+    0% {
+        transform: scale(0);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.success-message h3,
+.error-message h3,
+.already-responded h3 {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+}
+
+.success-message p,
+.error-message p {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--text-light);
+}
+
+/* ============================================
+   Final Section
+   ============================================ */
+.final-section {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, var(--champagne) 0%, var(--ivory) 100%);
+}
+
+.final-content {
+    text-align: center;
+    z-index: 2;
+    padding: 2rem;
+}
+
+.final-title {
+    font-family: var(--font-heading);
+    font-size: clamp(2.5rem, 7vw, 5rem);
+    font-weight: 300;
+    color: var(--gold);
+    margin-bottom: 3rem;
+    text-shadow: 0 2px 30px rgba(212, 175, 55, 0.3);
+}
+
+.final-names {
+    font-family: var(--font-heading);
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 300;
+    color: var(--gold);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.final-heart {
+    font-size: 1.5rem;
+    color: var(--gold-light);
+    animation: heartPulse 2s ease-in-out infinite;
+}
+
+.final-date {
+    font-family: var(--font-body);
+    font-size: 1.5rem;
+    color: var(--text-dark);
+    letter-spacing: 0.2em;
+}
+
+.falling-petals {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.petal {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background: url('https://image.qwenlm.ai/public_source/6fddd40a-4f03-4f03-abbd-c5e0ec811d06/13207e103-63f9-49a1-8e9f-e3257bdb62a5.png') center/contain no-repeat;
+    opacity: 0.6;
+    animation: petalFall linear infinite;
+}
+
+@keyframes petalFall {
+    0% {
+        transform: translateY(-100px) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.6;
+    }
+    90% {
+        opacity: 0.6;
+    }
+    100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+.final-ornament {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 300px;
+    opacity: 0.5;
+}
+
+.final-ornament svg {
+    width: 100%;
+    height: auto;
+}
+
+/* ============================================
+   Music Button
+   ============================================ */
+.music-btn {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    padding: 1rem 1.5rem;
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    border-radius: 50px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: var(--gold);
+    transition: var(--transition-smooth);
+    z-index: 1000;
+    box-shadow: var(--shadow-soft);
+}
+
+.music-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-gold);
+}
+
+.music-icon {
+    font-size: 1.2rem;
+    animation: musicPulse 2s ease-in-out infinite;
+}
+
+@keyframes musicPulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+.music-btn.playing .music-icon {
+    animation: musicSpin 3s linear infinite;
+}
+
+@keyframes musicSpin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* ============================================
+   Responsive
+   ============================================ */
+@media (max-width: 768px) {
+    section {
+        padding: 4rem 1.5rem;
+    }
+    
+    .timer-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+    
+    .info-cards {
+        grid-template-columns: 1fr;
+    }
+    
+    .attendance-options {
+        grid-template-columns: 1fr;
+    }
+    
+    .color-palette {
+        gap: 1rem;
+    }
+    
+    .color-card {
+        padding: 1.5rem;
+    }
+    
+    .color-circle {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .music-btn {
+        bottom: 1rem;
+        right: 1rem;
+        padding: 0.75rem 1rem;
+        font-size: 0.8rem;
+    }
+    
+    .birds-img {
+        width: 150px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-names {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .hero-date {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .date-line {
+        width: 40px;
+    }
+    
+    .timer-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .calendar {
+        padding: 1rem;
+    }
+    
+    .rsvp-container {
+        padding: 2rem 1rem;
+    }
+}
+
+
+              </style>
+                        </head>
+                        <body>
+                            <!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Жібек пен Ерасылдың тойына шақыру - 03 қазан 2026, Астана, Portafino">
+    <meta property="og:title" content="Жібек & Ерасыл - 03.10.2026">
+    <meta property="og:description" content="Сіздерді өміріміздегі ең маңызды күннің куәсі болуға шақырамыз">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://image.qwenlm.ai/public_source/6fddd40a-4f03-4f03-abbd-c5e0ec811d06/18d241eb3-a0c6-451e-b625-3fb2efbb1f36.png">
+    <title>Жібек & Ерасыл | 03.10.2026</title>
+    <link rel="icon" type="image/png" href="https://image.qwenlm.ai/public_source/6fddd40a-4f03-4f03-abbd-c5e0ec811d06/16e625809-e2d9-4398-ae25-35debe94823e.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Manrope:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Экран загрузки -->
+    <div class="loader-screen" id="loaderScreen">
+        <div class="curtain-left"></div>
+        <div class="curtain-right"></div>
+        <div class="curtain-overlay"></div>
+        
+        <div class="birds-container">
+            <img src="https://image.qwenlm.ai/public_source/6fddd40a-4f03-4f03-abbd-c5e0ec811d06/171b1226b-5240-4db4-b5ff-4acc75a7f2b7.png" alt="Golden birds" class="birds-img">
+        </div>
+        
+        <div class="loader-content">
+            <h1 class="loader-names">
+                <span class="loader-name">Жібек</span>
+                <span class="loader-heart">♡</span>
+                <span class="loader-name">Ерасыл</span>
+            </h1>
+            <p class="loader-date">03 қазан 2026</p>
+            <button class="open-btn" id="openBtn">Шақыруды ашу</button>
+        </div>
+    </div>
+
+    <!-- Основной контент -->
+    <main class="main-content" id="mainContent">
+        <!-- Hero секция -->
+        <section class="hero-section" id="hero">
+            <div class="hero-bg"></div>
+            <div class="hero-ornament-bg"></div>
+            <div class="hero-glow"></div>
+            
+            <div class="hero-content">
+                <p class="hero-greeting reveal-text">Құрметті қонақ!</p>
+                <p class="hero-subtitle reveal-text">Сіздерді өміріміздегі ең маңызды күннің куәсі болуға шақырамыз.</p>
+                <h1 class="hero-names reveal-text">
+                    <span>Жібек</span>
+                    <span class="hero-amp">&</span>
+                    <span>Ерасыл</span>
+                </h1>
+                <div class="hero-date reveal-text">
+                    <span class="date-line"></span>
+                    <span>03.10.2026</span>
+                    <span class="date-line"></span>
+                </div>
+            </div>
+            
+            <div class="scroll-indicator">
+                <div class="scroll-arrow"></div>
+            </div>
+        </section>
+
+        <!-- Национальный разделитель -->
+        <div class="ornament-divider">
+            <div class="divider-line"></div>
+            <div class="divider-ornament">
+                <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M100 20 L120 40 L140 35 L135 55 L155 60 L145 80 L165 90 L150 105 L165 120 L145 130 L155 150 L135 145 L140 165 L120 160 L100 180 L80 160 L60 165 L65 145 L45 150 L55 130 L35 120 L50 105 L35 90 L55 80 L45 60 L65 55 L60 35 L80 40 Z" fill="none" stroke="url(#goldGrad)" stroke-width="1.5"/>
+                    <path d="M100 50 L110 60 L120 58 L118 68 L128 70 L122 80 L132 85 L125 93 L132 100 L125 107 L132 115 L122 120 L128 130 L118 132 L120 142 L110 140 L100 150 L90 140 L80 142 L82 132 L72 130 L78 120 L68 115 L75 107 L68 100 L75 93 L68 85 L78 80 L72 70 L82 68 L80 58 L90 60 Z" fill="none" stroke="url(#goldGrad)" stroke-width="1"/>
+                    <circle cx="100" cy="100" r="8" fill="none" stroke="url(#goldGrad)" stroke-width="1"/>
+                    <circle cx="100" cy="100" r="3" fill="url(#goldGrad)"/>
+                    <defs>
+                        <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#d4af37;stop-opacity:1" />
+                            <stop offset="50%" style="stop-color:#f4e5a1;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#d4af37;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                </svg>
+            </div>
+            <div class="divider-line"></div>
+        </div>
+
+        <!-- Приглашение -->
+        <section class="invitation-section reveal-section">
+            <div class="section-ornament top"></div>
+            <h2 class="section-title">Құрметті қонақтар!</h2>
+            <div class="invitation-text">
+                <p>Сіздерді біздің өміріміздегі ең ерекше күннің куәсі болып, қуанышымызды бірге бөлісуге шақырамыз.</p>
+                <p>Сіздің келгеніңіз біз үшін үлкен мәртебе әрі қуаныш болады.</p>
+            </div>
+            <div class="section-ornament bottom"></div>
+        </section>
+
+        <!-- Таймер -->
+        <section class="timer-section reveal-section">
+            <h2 class="section-title">Тойдың басталуына қалды</h2>
+            <div class="timer-container">
+                <div class="timer-card glass">
+                    <div class="timer-value" id="days">00</div>
+                    <div class="timer-label">күн</div>
+                </div>
+                <div class="timer-card glass">
+                    <div class="timer-value" id="hours">00</div>
+                    <div class="timer-label">сағат</div>
+                </div>
+                <div class="timer-card glass">
+                    <div class="timer-value" id="minutes">00</div>
+                    <div class="timer-label">минут</div>
+                </div>
+                <div class="timer-card glass">
+                    <div class="timer-value" id="seconds">00</div>
+                    <div class="timer-label">секунд</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Календарь -->
+        <section class="calendar-section reveal-section">
+            <h2 class="section-title">Қазан 2026</h2>
+            <div class="calendar-wrapper">
+                <div class="calendar">
+                    <div class="calendar-header">
+                        <span>Дс</span><span>Сс</span><span>Ср</span><span>Бс</span><span>Жм</span><span>Сб</span><span>Жс</span>
+                    </div>
+                    <div class="calendar-days">
+                        <span class="day other-month">28</span>
+                        <span class="day other-month">29</span>
+                        <span class="day other-month">30</span>
+                        <span class="day">1</span>
+                        <span class="day">2</span>
+                        <span class="day special">3</span>
+                        <span class="day">4</span>
+                        <span class="day">5</span>
+                        <span class="day">6</span>
+                        <span class="day">7</span>
+                        <span class="day">8</span>
+                        <span class="day">9</span>
+                        <span class="day">10</span>
+                        <span class="day">11</span>
+                        <span class="day">12</span>
+                        <span class="day">13</span>
+                        <span class="day">14</span>
+                        <span class="day">15</span>
+                        <span class="day">16</span>
+                        <span class="day">17</span>
+                        <span class="day">18</span>
+                        <span class="day">19</span>
+                        <span class="day">20</span>
+                        <span class="day">21</span>
+                        <span class="day">22</span>
+                        <span class="day">23</span>
+                        <span class="day">24</span>
+                        <span class="day">25</span>
+                        <span class="day">26</span>
+                        <span class="day">27</span>
+                        <span class="day">28</span>
+                        <span class="day">29</span>
+                        <span class="day">30</span>
+                        <span class="day">31</span>
+                        <span class="day other-month">1</span>
+                    </div>
+                </div>
+                <p class="calendar-day-name">Сенбі</p>
+            </div>
+        </section>
+
+        <!-- Информация -->
+        <section class="info-section reveal-section">
+            <h2 class="section-title">Той туралы ақпарат</h2>
+            <div class="info-cards">
+                <div class="info-card glass">
+                    <div class="info-icon">📅</div>
+                    <h3 class="info-label">Күні</h3>
+                    <p class="info-value">03 қазан 2026</p>
+                </div>
+                <div class="info-card glass">
+                    <div class="info-icon">🕕</div>
+                    <h3 class="info-label">Уақыты</h3>
+                    <p class="info-value">18:00</p>
+                </div>
+                <div class="info-card glass">
+                    <div class="info-icon">📍</div>
+                    <h3 class="info-label">Өтетін орны</h3>
+                    <p class="info-value">Portafino<br>Астана</p>
+                    <a href="https://2gis.ru/astana/search/Portafino" target="_blank" rel="noopener" class="info-btn">2GIS арқылы ашу</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Карта -->
+        <section class="map-section reveal-section">
+            <h2 class="section-title">Орналасқан жері</h2>
+            <div class="map-container glass">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2502.5!2d71.4278!3d51.1282!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTHCsDA3JzQxLjUiTiA3McKwMjUnNDAuMSJF!5e0!3m2!1sru!2skz!4v1600000000000" width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+            <a href="https://2gis.ru/astana/directions?to=51.1282%2C71.4278" target="_blank" rel="noopener" class="direction-btn">Бағыт алу</a>
+        </section>
+
+        <!-- Dress Code -->
+        <section class="dresscode-section reveal-section">
+            <h2 class="section-title">Dress Code</h2>
+            <p class="dresscode-text">Ұлттық нақыштағы немесе классикалық киім үлгісін таңдасаңыз қуанышты боламыз.</p>
+            <div class="color-palette">
+                <div class="color-card glass">
+                    <div class="color-circle" style="background: linear-gradient(135deg, #FFFFF0, #F5F5DC);"></div>
+                    <span>Ivory</span>
+                </div>
+                <div class="color-card glass">
+                    <div class="color-circle" style="background: linear-gradient(135deg, #F5F5DC, #D2B48C);"></div>
+                    <span>Beige</span>
+                </div>
+                <div class="color-card glass">
+                    <div class="color-circle" style="background: linear-gradient(135deg, #FFFDD0, #FAF0E6);"></div>
+                    <span>Milk</span>
+                </div>
+                <div class="color-card glass">
+                    <div class="color-circle" style="background: linear-gradient(135deg, #D4AF37, #F4E5A1);"></div>
+                    <span>Gold</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- RSVP -->
+        <section class="rsvp-section reveal-section" id="rsvpSection">
+            <h2 class="section-title">Қатысуыңызды растаңыз</h2>
+            <p class="rsvp-subtitle">Жауабыңызды 2026 жылдың 20 қыркүйегіне дейін жіберуіңізді сұраймыз.</p>
+            
+            <div class="rsvp-container glass" id="rsvpContainer">
+                <form id="rsvpForm" class="rsvp-form">
+                    <div class="form-group">
+                        <label for="fullname">Аты-жөні</label>
+                        <input type="text" id="fullname" name="fullname" placeholder="Аты-жөніңіз" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Қатысу</label>
+                        <div class="attendance-options">
+                            <label class="attendance-card">
+                                <input type="radio" name="attendance" value="Жалғыз келемін" required>
+                                <div class="attendance-content">
+                                    <span class="attendance-emoji">❤️</span>
+                                    <span>Жалғыз келемін</span>
+                                </div>
+                            </label>
+                            <label class="attendance-card">
+                                <input type="radio" name="attendance" value="Жұбыммен келемін">
+                                <div class="attendance-content">
+                                    <span class="attendance-emoji">👫</span>
+                                    <span>Жұбыммен келемін</span>
+                                </div>
+                            </label>
+                            <label class="attendance-card">
+                                <input type="radio" name="attendance" value="Өкінішке қарай келе алмаймын">
+                                <div class="attendance-content">
+                                    <span class="attendance-emoji">😔</span>
+                                    <span>Өкінішке қарай келе алмаймын</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn" id="submitBtn">
+                        <span class="btn-text">Жауап жіберу</span>
+                        <span class="btn-loader" style="display:none;">Жіберілуде...</span>
+                    </button>
+                </form>
+                
+                <div class="success-message" id="successMessage" style="display:none;">
+                    <div class="success-icon">✓</div>
+                    <h3>Рақмет!</h3>
+                    <p>Сіздің жауабыңыз қабылданды.</p>
+                </div>
+                
+                <div class="error-message" id="errorMessage" style="display:none;">
+                    <div class="error-icon">✗</div>
+                    <h3>Жауап жіберілмеді.</h3>
+                    <p>Қайтадан көріңіз.</p>
+                </div>
+                
+                <div class="already-responded" id="alreadyResponded" style="display:none;">
+                    <div class="success-icon">✓</div>
+                    <h3>Сіз бұл шақыруға жауап бердіңіз.</h3>
+                </div>
+            </div>
+        </section>
+
+        <!-- Финальный экран -->
+        <section class="final-section">
+            <div class="final-content">
+                <h2 class="final-title">Сізді асыға күтеміз!</h2>
+                <div class="final-names">
+                    <span>Жібек</span>
+                    <span class="final-heart">♡</span>
+                    <span>Ерасыл</span>
+                </div>
+                <p class="final-date">03.10.2026</p>
+            </div>
+            <div class="falling-petals" id="fallingPetals"></div>
+            <div class="final-ornament">
+                <svg viewBox="0 0 400 100" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0 50 Q50 20 100 50 T200 50 T300 50 T400 50" fill="none" stroke="url(#goldGrad2)" stroke-width="2"/>
+                    <path d="M0 50 Q50 80 100 50 T200 50 T300 50 T400 50" fill="none" stroke="url(#goldGrad2)" stroke-width="2"/>
+                    <circle cx="200" cy="50" r="8" fill="url(#goldGrad2)"/>
+                    <circle cx="100" cy="50" r="5" fill="url(#goldGrad2)"/>
+                    <circle cx="300" cy="50" r="5" fill="url(#goldGrad2)"/>
+                    <defs>
+                        <linearGradient id="goldGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" style="stop-color:#d4af37;stop-opacity:0.3" />
+                            <stop offset="50%" style="stop-color:#f4e5a1;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#d4af37;stop-opacity:0.3" />
+                        </linearGradient>
+                    </defs>
+                </svg>
+            </div>
+        </section>
+    </main>
+
+    <!-- Музыкальная кнопка -->
+    <button class="music-btn" id="musicBtn">
+        <span class="music-icon"></span>
+        <span class="music-text">Музыканы қосу</span>
+    </button>
+    
+    <audio id="bgMusic" loop>
+        <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=relaxing-mountains-rivers-streams-running-water-18178.mp3" type="audio/mpeg">
+    </audio>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+
+
+              <script>
+                              // ============================================
+// Google Apps Script URL
+// Замените на ваш URL
+// ============================================
+const GOOGLE_SCRIPT_URL = "PASTE_YOUR_GOOGLE_SCRIPT_URL_HERE";
+
+// ============================================
+// Loader Animation
+// ============================================
+document.addEventListener('DOMContentLoaded', () => {
+    const loaderScreen = document.getElementById('loaderScreen');
+    const openBtn = document.getElementById('openBtn');
+    const mainContent = document.getElementById('mainContent');
+    
+    openBtn.addEventListener('click', () => {
+        loaderScreen.classList.add('open');
+        setTimeout(() => {
+            mainContent.classList.add('visible');
+            setTimeout(() => {
+                loaderScreen.style.display = 'none';
+            }, 1000);
+        }, 500);
+    });
+    
+    // ============================================
+    // Scroll Reveal Animation
+    // ============================================
+    const revealSections = document.querySelectorAll('.reveal-section');
+    
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -100px 0px'
+    });
+    
+    revealSections.forEach(section => {
+        revealObserver.observe(section);
+    });
+    
+    // ============================================
+    // Countdown Timer
+    // ============================================
+    const weddingDate = new Date('2026-10-03T18:00:00').getTime();
+    
+    function updateTimer() {
+        const now = new Date().getTime();
+        const distance = weddingDate - now;
+        
+        if (distance < 0) {
+            document.getElementById('days').textContent = '00';
+            document.getElementById('hours').textContent = '00';
+            document.getElementById('minutes').textContent = '00';
+            document.getElementById('seconds').textContent = '00';
+            return;
+        }
+        
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        
+        const daysEl = document.getElementById('days');
+        const hoursEl = document.getElementById('hours');
+        const minutesEl = document.getElementById('minutes');
+        const secondsEl = document.getElementById('seconds');
+        
+        const newDays = String(days).padStart(2, '0');
+        const newHours = String(hours).padStart(2, '0');
+        const newMinutes = String(minutes).padStart(2, '0');
+        const newSeconds = String(seconds).padStart(2, '0');
+        
+        if (daysEl.textContent !== newDays) {
+            daysEl.textContent = newDays;
+            daysEl.classList.add('changing');
+            setTimeout(() => daysEl.classList.remove('changing'), 500);
+        }
+        
+        if (hoursEl.textContent !== newHours) {
+            hoursEl.textContent = newHours;
+            hoursEl.classList.add('changing');
+            setTimeout(() => hoursEl.classList.remove('changing'), 500);
+        }
+        
+        if (minutesEl.textContent !== newMinutes) {
+            minutesEl.textContent = newMinutes;
+            minutesEl.classList.add('changing');
+            setTimeout(() => minutesEl.classList.remove('changing'), 500);
+        }
+        
+        if (secondsEl.textContent !== newSeconds) {
+            secondsEl.textContent = newSeconds;
+            secondsEl.classList.add('changing');
+            setTimeout(() => secondsEl.classList.remove('changing'), 500);
+        }
+    }
+    
+    updateTimer();
+    setInterval(updateTimer, 1000);
+    
+    // ============================================
+    // Falling Petals
+    // ============================================
+    const fallingPetals = document.getElementById('fallingPetals');
+    
+    function createPetal() {
+        const petal = document.createElement('div');
+        petal.className = 'petal';
+        petal.style.left = Math.random() * 100 + '%';
+        petal.style.animationDuration = (Math.random() * 5 + 8) + 's';
+        petal.style.animationDelay = Math.random() * 5 + 's';
+        petal.style.opacity = Math.random() * 0.5 + 0.3;
+        fallingPetals.appendChild(petal);
+        
+        setTimeout(() => {
+            petal.remove();
+        }, 15000);
+    }
+    
+    setInterval(createPetal, 1000);
+    for (let i = 0; i < 10; i++) {
+        setTimeout(createPetal, i * 500);
+    }
+    
+    // ============================================
+    // Music Player
+    // ============================================
+    const musicBtn = document.getElementById('musicBtn');
+    const bgMusic = document.getElementById('bgMusic');
+    let isPlaying = false;
+    
+    musicBtn.addEventListener('click', () => {
+        if (isPlaying) {
+            bgMusic.pause();
+            musicBtn.classList.remove('playing');
+            musicBtn.querySelector('.music-text').textContent = 'Музыканы қосу';
+        } else {
+            bgMusic.play();
+            musicBtn.classList.add('playing');
+            musicBtn.querySelector('.music-text').textContent = 'Музыканы өшіру';
+        }
+        isPlaying = !isPlaying;
+    });
+    
+    // ============================================
+    // RSVP Form
+    // ============================================
+    const rsvpForm = document.getElementById('rsvpForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const successMessage = document.getElementById('successMessage');
+    const errorMessage = document.getElementById('errorMessage');
+    const alreadyResponded = document.getElementById('alreadyResponded');
+    const rsvpContainer = document.getElementById('rsvpContainer');
+    
+    // Check if already responded
+    if (localStorage.getItem('weddingRSVP')) {
+        rsvpForm.style.display = 'none';
+        alreadyResponded.style.display = 'block';
+    }
+    
+    rsvpForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const fullname = document.getElementById('fullname').value.trim();
+        const attendance = document.querySelector('input[name="attendance"]:checked');
+        
+        if (!fullname || !attendance) {
+            return;
+        }
+        
+        // Show loading
+        submitBtn.disabled = true;
+        submitBtn.querySelector('.btn-text').style.display = 'none';
+        submitBtn.querySelector('.btn-loader').style.display = 'inline';
+        
+        const data = {
+            fullname: fullname,
+            attendance: attendance.value,
+            submittedAt: new Date().toISOString()
+        };
+        
+        try {
+            const response = await fetch(GOOGLE_SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+            
+            // Save to localStorage
+            localStorage.setItem('weddingRSVP', JSON.stringify({
+                fullname: fullname,
+                attendance: attendance.value,
+                submittedAt: data.submittedAt
+            }));
+            
+            // Show success
+            rsvpForm.style.display = 'none';
+            successMessage.style.display = 'block';
+            
+        } catch (error) {
+            console.error('Error:', error);
+            rsvpForm.style.display = 'none';
+            errorMessage.style.display = 'block';
+            submitBtn.disabled = false;
+            submitBtn.querySelector('.btn-text').style.display = 'inline';
+            submitBtn.querySelector('.btn-loader').style.display = 'none';
+        }
+    });
+    
+    // ============================================
+    // Smooth Scroll
+    // ============================================
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+    
+    // ============================================
+    // Parallax Effect
+    // ============================================
+    window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset;
+        const heroBg = document.querySelector('.hero-bg');
+        if (heroBg) {
+            heroBg.style.transform = `translateY(${scrolled * 0.5}px)`;
+        }
+    });
+});
+
+
+              </script>
+                        </body>
+                        </html>
+                    
