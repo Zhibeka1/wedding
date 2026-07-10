@@ -9,7 +9,7 @@ body { background-color: white; }
 </head>
 <body>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Yeseva+One&family=Cormorant+Garamond:ital@0;1&family=Montserrat:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Yeseva+One&family=Cormorant+Garamond:ital@0;1&family=Montserrat:wght@300;400;500;600&family=Marck+Script&display=swap');
 
 .ez-wrap{
   --cream:#f6f0e6; --cream-deep:#efe6d5; --card:#fffcf6; --ink:#2e2620; --ink-soft:#6b5f52;
@@ -27,7 +27,7 @@ body { background-color: white; }
 }
 .ez-lang-btn{
   border:1px solid var(--gold); background:transparent; color:var(--ink-soft);
-  font-family:'Montserrat'; font-size:11px; letter-spacing:1.5px; padding:6px 16px; border-radius:20px; cursor:pointer;
+  font-family:'Montserrat'; font-size:13px; letter-spacing:1.5px; padding:6px 16px; border-radius:20px; cursor:pointer;
   transition:all .25s ease;
 }
 .ez-lang-btn.active{ background:var(--terracotta); color:#fff; border-color:var(--terracotta); }
@@ -58,105 +58,105 @@ body { background-color: white; }
 @keyframes ezpulse{ 0%{transform:scale(.85);opacity:.9;} 100%{transform:scale(1.35);opacity:0;} }
 .ez-play-btn:hover{ transform:scale(1.06); }
 .ez-play-btn svg{ width:20px; height:20px; fill:#f6efe2; margin-left:3px; }
-.ez-play-label{ font-size:11px; letter-spacing:3px; color:var(--gold-light); text-transform:uppercase; }
+.ez-play-label{ font-size:13px; letter-spacing:3px; color:var(--gold-light); text-transform:uppercase; }
 .ez-hero-bottom{ position:absolute; left:0; right:0; bottom:0; z-index:2; text-align:center; padding:0 24px 44px; }
-.ez-hero-names{ font-family:'Yeseva One',serif; font-size:15px; letter-spacing:2px; color:#f3e9d8; text-transform:uppercase; }
+.ez-hero-names{ font-family:'Yeseva One',serif; font-size:17px; letter-spacing:2px; color:#f3e9d8; text-transform:uppercase; }
 .ez-hero-line{ width:36px; height:1px; background:var(--gold-light); margin:12px auto; opacity:.6; }
 
 /* NAMES */
 .ez-names-section{ padding:52px 24px 36px; text-align:center; position:relative; overflow:hidden; }
 .ez-monogram{ width:150px; margin:0 auto 20px; position:relative; z-index:1; }
 .ez-names-card{ background:var(--card); border-radius:20px; padding:38px 26px 32px; box-shadow:0 18px 44px -20px rgba(46,38,32,.35); border:1px solid var(--line); position:relative; z-index:1; }
-.ez-names-title{ font-family:'Yeseva One',serif; font-size:28px; margin:0 0 4px; }
-.ez-names-sub{ font-size:10px; letter-spacing:4px; color:var(--ink-soft); text-transform:uppercase; }
+.ez-names-title{ font-family:'Yeseva One',serif; font-size:30px; margin:0 0 4px; }
+.ez-names-sub{ font-size:12px; letter-spacing:4px; color:var(--ink-soft); text-transform:uppercase; }
 
 /* MESSAGE */
 .ez-message-section{ padding:6px 28px 40px; text-align:center; position:relative; overflow:hidden; }
-.ez-eyebrow{ font-size:11px; letter-spacing:4px; color:var(--terracotta-deep); text-transform:uppercase; font-weight:600; margin-bottom:20px; position:relative; z-index:1; }
-.ez-message{ font-size:15px; line-height:2; position:relative; z-index:1; }
+.ez-eyebrow{ font-size:13px; letter-spacing:4px; color:var(--terracotta-deep); text-transform:uppercase; font-weight:600; margin-bottom:20px; position:relative; z-index:1; }
+.ez-message{ font-size:17px; line-height:2; position:relative; z-index:1; }
 .ez-message .ez-name{ font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:600; color:var(--terracotta-deep); font-size:1.15em; }
-.ez-signature{ margin-top:24px; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:17px; color:var(--ink-soft); position:relative; z-index:1; }
+.ez-signature{ margin-top:26px; font-family:'Marck Script',cursive; font-size:21px; color:var(--terracotta-deep); position:relative; z-index:1; line-height:1.4; }
 
 /* DATE */
 .ez-date-section{ padding:6px 20px 46px; text-align:center; position:relative; overflow:hidden; }
-.ez-date-eyebrow{ font-size:11px; letter-spacing:5px; color:var(--ink-soft); text-transform:uppercase; position:relative; z-index:1; }
-.ez-date-big{ font-family:'Yeseva One',serif; font-size:32px; color:var(--terracotta-deep); margin:10px 0 2px; position:relative; z-index:1; }
+.ez-date-eyebrow{ font-size:13px; letter-spacing:5px; color:var(--ink-soft); text-transform:uppercase; position:relative; z-index:1; }
+.ez-date-big{ font-family:'Yeseva One',serif; font-size:34px; color:var(--terracotta-deep); margin:10px 0 2px; position:relative; z-index:1; }
 .ez-calendar{ background:var(--card); border-radius:18px; padding:18px 12px; box-shadow:0 14px 36px -20px rgba(46,38,32,.3); border:1px solid var(--line); position:relative; z-index:1; }
-.ez-month-label{ font-family:'Cormorant Garamond',serif; font-style:italic; font-size:21px; color:var(--ink-soft); }
-.ez-month-year{ font-size:12px; letter-spacing:3px; color:var(--ink-soft); margin-bottom:16px; }
-.ez-cal-week{ display:grid; grid-template-columns:repeat(7,1fr); font-size:10px; color:var(--ink-soft); margin-bottom:8px; }
+.ez-month-label{ font-family:'Cormorant Garamond',serif; font-style:italic; font-size:23px; color:var(--ink-soft); }
+.ez-month-year{ font-size:14px; letter-spacing:3px; color:var(--ink-soft); margin-bottom:16px; }
+.ez-cal-week{ display:grid; grid-template-columns:repeat(7,1fr); font-size:12px; color:var(--ink-soft); margin-bottom:8px; }
 .ez-cal-grid{ display:grid; grid-template-columns:repeat(7,1fr); row-gap:6px; }
-.ez-cal-grid div{ padding:7px 0; font-size:13px; }
+.ez-cal-grid div{ padding:7px 0; font-size:15px; }
 .ez-cal-grid .dim{ color:rgba(46,38,32,.28); }
 .ez-cal-grid .active{ background:var(--terracotta); color:#fff; border-radius:50%; width:26px; height:26px; display:flex; align-items:center; justify-content:center; margin:0 auto; font-weight:600; }
-.ez-day-name{ font-family:'Cormorant Garamond',serif; font-style:italic; font-size:19px; margin-top:22px; color:var(--terracotta-deep); position:relative; z-index:1; }
-.ez-time-eyebrow{ font-size:10px; letter-spacing:4px; color:var(--ink-soft); margin-top:16px; text-transform:uppercase; position:relative; z-index:1; }
-.ez-time-big{ font-family:'Yeseva One',serif; font-size:24px; position:relative; z-index:1; }
+.ez-day-name{ font-family:'Cormorant Garamond',serif; font-style:italic; font-size:21px; margin-top:22px; color:var(--terracotta-deep); position:relative; z-index:1; }
+.ez-time-eyebrow{ font-size:12px; letter-spacing:4px; color:var(--ink-soft); margin-top:16px; text-transform:uppercase; position:relative; z-index:1; }
+.ez-time-big{ font-family:'Yeseva One',serif; font-size:26px; position:relative; z-index:1; }
 
 /* TIMELINE */
 .ez-timeline-section{ padding:6px 24px 46px; background:var(--cream); position:relative; overflow:hidden; border-top:1px solid var(--line); }
-.ez-timeline-title{ text-align:center; font-family:'Yeseva One',serif; font-size:18px; color:var(--terracotta-deep); margin-bottom:30px; position:relative; z-index:1; }
+.ez-timeline-title{ text-align:center; font-family:'Yeseva One',serif; font-size:20px; color:var(--terracotta-deep); margin-bottom:30px; position:relative; z-index:1; }
 .ez-t-item{ display:flex; gap:16px; position:relative; padding-bottom:30px; z-index:1; }
 .ez-t-item:last-child{ padding-bottom:0; }
 .ez-t-rail{ position:relative; width:32px; display:flex; justify-content:center; }
-.ez-t-dot{ width:32px; height:32px; border-radius:50%; background:var(--card); border:1.5px solid var(--terracotta); color:var(--terracotta-deep); font-family:'Yeseva One',serif; font-size:12px; display:flex; align-items:center; justify-content:center; z-index:2; flex-shrink:0; }
+.ez-t-dot{ width:32px; height:32px; border-radius:50%; background:var(--card); border:1.5px solid var(--terracotta); color:var(--terracotta-deep); font-family:'Yeseva One',serif; font-size:14px; display:flex; align-items:center; justify-content:center; z-index:2; flex-shrink:0; }
 .ez-t-line{ position:absolute; top:32px; bottom:-30px; width:1px; background:var(--gold-light); }
 .ez-t-item:last-child .ez-t-line{ display:none; }
-.ez-t-text{ font-family:'Cormorant Garamond',serif; font-style:italic; font-size:16px; display:flex; align-items:center; }
+.ez-t-text{ font-family:'Cormorant Garamond',serif; font-style:italic; font-size:18px; display:flex; align-items:center; }
 
 /* LOCATION */
 .ez-location-section{ padding:44px 24px; text-align:center; }
 .ez-map-embed{ width:100%; height:200px; border-radius:18px; overflow:hidden; box-shadow:0 16px 34px -18px rgba(46,38,32,.4); border:1px solid var(--line); margin-bottom:16px; display:block; }
 .ez-map-embed img{ width:100%; height:100%; object-fit:cover; display:block; }
-.ez-venue-name{ font-family:'Yeseva One',serif; font-size:19px; margin:6px 0 2px; }
-.ez-venue-city{ font-size:13px; color:var(--ink-soft); margin-bottom:22px; }
-.ez-map-btn{ display:inline-flex; align-items:center; gap:8px; padding:14px 30px; background:var(--terracotta); color:#fff; border-radius:30px; font-size:11px; letter-spacing:2px; text-transform:uppercase; font-weight:600; box-shadow:0 12px 24px -10px rgba(178,96,59,.55); text-decoration:none; }
+.ez-venue-name{ font-family:'Yeseva One',serif; font-size:21px; margin:6px 0 2px; }
+.ez-venue-city{ font-size:15px; color:var(--ink-soft); margin-bottom:22px; }
+.ez-map-btn{ display:inline-flex; align-items:center; gap:8px; padding:14px 30px; background:var(--terracotta); color:#fff; border-radius:30px; font-size:13px; letter-spacing:2px; text-transform:uppercase; font-weight:600; box-shadow:0 12px 24px -10px rgba(178,96,59,.55); text-decoration:none; }
 
 /* COUNTDOWN */
 .ez-countdown-section{ padding:6px 24px 46px; text-align:center; }
-.ez-countdown-title{ font-family:'Yeseva One',serif; font-size:15px; line-height:1.5; max-width:280px; margin:0 auto 26px; }
+.ez-countdown-title{ font-family:'Yeseva One',serif; font-size:17px; line-height:1.5; max-width:280px; margin:0 auto 26px; }
 .ez-countdown{ display:flex; justify-content:center; }
 .ez-cd-block{ flex:1; padding:0 8px; position:relative; }
 .ez-cd-block+.ez-cd-block::before{ content:''; position:absolute; left:0; top:8px; bottom:14px; width:1px; background:var(--line); }
-.ez-cd-num{ font-family:'Yeseva One',serif; font-size:26px; color:var(--terracotta-deep); }
-.ez-cd-label{ font-size:9px; letter-spacing:2px; color:var(--ink-soft); text-transform:uppercase; margin-top:6px; }
+.ez-cd-num{ font-family:'Yeseva One',serif; font-size:28px; color:var(--terracotta-deep); }
+.ez-cd-label{ font-size:11px; letter-spacing:2px; color:var(--ink-soft); text-transform:uppercase; margin-top:6px; }
 
 /* RSVP */
 .ez-rsvp-section{ padding:20px 24px 54px; background:var(--cream); border-top:1px solid var(--line); }
-.ez-rsvp-title{ text-align:center; font-family:'Yeseva One',serif; font-size:19px; color:var(--terracotta-deep); }
-.ez-rsvp-sub{ text-align:center; font-size:13px; color:var(--ink-soft); line-height:1.7; max-width:300px; margin:10px auto 26px; }
-.ez-field-label{ font-size:10px; letter-spacing:2px; color:var(--ink-soft); text-transform:uppercase; margin-bottom:6px; display:block; }
-.ez-field-hint{ font-size:11px; color:rgba(107,95,82,.7); margin-bottom:10px; display:block; }
-.ez-input{ width:100%; padding:14px 16px; border-radius:12px; border:1px solid var(--line); background:var(--card); font-family:'Montserrat'; font-size:14px; color:var(--ink); outline:none; margin-bottom:24px; }
+.ez-rsvp-title{ text-align:center; font-family:'Yeseva One',serif; font-size:21px; color:var(--terracotta-deep); }
+.ez-rsvp-sub{ text-align:center; font-size:15px; color:var(--ink-soft); line-height:1.7; max-width:300px; margin:10px auto 26px; }
+.ez-field-label{ font-size:12px; letter-spacing:2px; color:var(--ink-soft); text-transform:uppercase; margin-bottom:6px; display:block; }
+.ez-field-hint{ font-size:13px; color:rgba(107,95,82,.7); margin-bottom:10px; display:block; }
+.ez-input{ width:100%; padding:14px 16px; border-radius:12px; border:1px solid var(--line); background:var(--card); font-family:'Montserrat'; font-size:16px; color:var(--ink); outline:none; margin-bottom:24px; }
 .ez-input:focus{ border-color:var(--terracotta); box-shadow:0 0 0 3px rgba(178,96,59,.12); }
-.ez-question{ font-size:10px; letter-spacing:2px; color:var(--ink-soft); text-transform:uppercase; margin-bottom:12px; display:block; }
+.ez-question{ font-size:12px; letter-spacing:2px; color:var(--ink-soft); text-transform:uppercase; margin-bottom:12px; display:block; }
 .ez-radio-label{ display:flex; align-items:center; gap:14px; padding:14px 16px; border-radius:12px; border:1px solid var(--line); background:var(--card); margin-bottom:10px; cursor:pointer; transition:border-color .2s ease,background .2s ease; }
 .ez-radio-label:hover{ border-color:var(--gold); }
 .ez-radio-label input[type="radio"]{ appearance:none; -webkit-appearance:none; width:18px; height:18px; border:1.5px solid var(--gold); border-radius:50%; position:relative; flex-shrink:0; cursor:pointer; }
 .ez-radio-label input[type="radio"]:checked{ border-color:var(--terracotta); background:var(--terracotta); box-shadow:inset 0 0 0 3px var(--card); }
-.ez-radio-text{ font-size:13px; }
-.ez-submit-btn{ width:100%; margin-top:14px; padding:16px; border:none; border-radius:30px; background:var(--terracotta); color:#fff; font-size:12px; letter-spacing:2.5px; text-transform:uppercase; font-weight:600; cursor:pointer; box-shadow:0 14px 28px -12px rgba(178,96,59,.55); transition:transform .25s ease; }
+.ez-radio-text{ font-size:15px; }
+.ez-submit-btn{ width:100%; margin-top:14px; padding:16px; border:none; border-radius:30px; background:var(--terracotta); color:#fff; font-size:14px; letter-spacing:2.5px; text-transform:uppercase; font-weight:600; cursor:pointer; box-shadow:0 14px 28px -12px rgba(178,96,59,.55); transition:transform .25s ease; }
 .ez-submit-btn:hover:not(:disabled){ transform:translateY(-2px); }
 .ez-submit-btn:disabled{ opacity:.6; cursor:not-allowed; }
 .ez-msg{ text-align:center; padding:26px 20px; display:none; }
 .ez-msg-icon{ width:70px; height:70px; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 16px; font-size:2rem; color:#fff; }
 .ez-msg-icon.success{ background:linear-gradient(135deg,var(--terracotta),var(--gold-light)); }
 .ez-msg-icon.error{ background:linear-gradient(135deg,#c0392b,#e74c3c); }
-.ez-msg h3{ font-family:'Yeseva One',serif; font-size:22px; color:var(--terracotta-deep); margin-bottom:8px; }
-.ez-msg p{ color:var(--ink-soft); font-size:14px; }
+.ez-msg h3{ font-family:'Yeseva One',serif; font-size:24px; color:var(--terracotta-deep); margin-bottom:8px; }
+.ez-msg p{ color:var(--ink-soft); font-size:16px; }
 
 /* FOOTER */
 .ez-footer{ position:relative; aspect-ratio:900/713; width:100%; display:flex; align-items:flex-end; justify-content:center; text-align:center; color:var(--gold-light); overflow:hidden; }
 .ez-footer-bg{ position:absolute; inset:0; background-size:cover; background-position:center; filter:brightness(.5) saturate(1.1); }
 .ez-footer-veil{ position:absolute; inset:0; background:linear-gradient(180deg,rgba(10,8,6,0) 40%,rgba(10,8,6,.85) 100%); }
 .ez-footer-content{ position:relative; z-index:1; padding:0 26px 30px; }
-.ez-footer-name{ font-family:'Yeseva One',serif; font-size:16px; color:#f3e9d8; margin-bottom:8px; }
-.ez-footer-sub{ font-size:11px; letter-spacing:2px; color:rgba(217,198,160,.6); }
+.ez-footer-name{ font-family:'Yeseva One',serif; font-size:18px; color:#f3e9d8; margin-bottom:8px; }
+.ez-footer-sub{ font-size:13px; letter-spacing:2px; color:rgba(217,198,160,.6); }
 
-@media (max-width:380px){ .ez-names-title{ font-size:24px; } .ez-cd-num{ font-size:22px; } }
+@media (max-width:380px){ .ez-names-title{ font-size:26px; } .ez-cd-num{ font-size:24px; } }
 .ez-music-wrap{ position:fixed; bottom:22px; right:18px; z-index:60; display:flex; align-items:center; gap:10px; }
 .ez-music-hint{
-  background:var(--card); color:var(--ink); font-size:11px; padding:8px 14px; border-radius:20px;
+  background:var(--card); color:var(--ink); font-size:13px; padding:8px 14px; border-radius:20px;
   box-shadow:0 8px 20px -8px rgba(46,38,32,.3); border:1px solid var(--line);
   opacity:1; transition:opacity .6s ease; white-space:nowrap;
 }
